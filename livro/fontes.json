@@ -38,5 +38,21 @@
  "L5478": {
   "titulo": "Lei de Alimentos (Lei nº 5.478/1968)",
   "url": "https://www2.camara.leg.br/legin/fed/lei/1960-1969/lei-5478-25-julho-1968-358589-normaatualizada-pl.html"
+ },
+ "EPI": {
+  "titulo": "Estatuto da Pessoa Idosa (Lei nº 10.741/2003)",
+  "url": "https://www2.camara.leg.br/legin/fed/lei/2003/lei-10741-1-outubro-2003-497511-normaatualizada-pl.html"
+ },
+ "LD": {
+  "titulo": "Lei de Drogas (Lei nº 11.343/2006)",
+  "url": "https://www2.camara.leg.br/legin/fed/lei/2006/lei-11343-23-agosto-2006-545399-normaatualizada-pl.html"
+ },
+ "LEP": {
+  "titulo": "Lei de Execução Penal (Lei nº 7.210/1984)",
+  "url": "https://www2.camara.leg.br/legin/fed/lei/1980-1987/lei-7210-11-julho-1984-356938-normaatualizada-pl.html"
+ },
+ "CTB": {
+  "titulo": "Código de Trânsito Brasileiro (Lei nº 9.503/1997)",
+  "url": "https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html"
  }
 }

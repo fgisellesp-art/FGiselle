@@ -20,7 +20,7 @@ Objetivo: reduzir o risco de a minuta citar lei, artigo, súmula, tema ou preced
 | `escrita-autentica/` | Skill de estilo ajustada para não inventar especificidade nem mexer em citação |
 | `*/scripts/verificar_citacoes.py` | Verificador mecânico de citações |
 | `*/references/` | Modelo do Livro de Autoridades e prompt do verificador independente |
-| `livro/` | Acervo oficial: texto literal de cada artigo de 10 diplomas, extraído por programa da Câmara dos Deputados |
+| `livro/` | Acervo oficial: texto literal de cada artigo de 14 diplomas, extraído por programa da Câmara dos Deputados |
 | `CHANGELOG-blindagem.md` | Lista exata do que mudou e das pendências |
 | `testes/` | Casos de teste do verificador |
 
@@ -55,6 +55,10 @@ Texto literal, artigo por artigo, extraído por programa (`livro/construir_livro
 | L9099 | Lei 9.099/1995 | 1 a 97 |
 | CDC | Lei 8.078/1990 | 1 a 119 |
 | L5478 | Lei 5.478/1968 | 1 a 29 |
+| EPI | Estatuto da Pessoa Idosa (Lei 10.741/2003) | 1 a 118 |
+| LD | Lei de Drogas (Lei 11.343/2006) | 1 a 75 (com artigos com letra) |
+| LEP | Lei 7.210/1984 | 1 a 204 |
+| CTB | Lei 9.503/1997 | 1 a 341 |
 
 Conferências feitas: sequência numérica completa em todos (incluindo artigos com letra, como 359-M-A); cabeçalho de cada página confere com o diploma; o art. 731 do CPC bate palavra por palavra com o texto colado pela usuária. Duas irregularidades do próprio original ficaram registradas no Livro, sem correção silenciosa: "Art. l97" no CP (letra l) e "Art 1.636" no CC (sem ponto).
 

@@ -50,6 +50,9 @@ NOMES = {
     r"lei\s+maria\s+da\s+penha": "LMP",
     r"lei\s+dos\s+juizados\s+especiais": "L9099",
     r"lei\s+de\s+alimentos": "L5478",
+    r"estatuto\s+d[ao]\s+(?:pessoa\s+)?idos[ao]": "EPI",
+    r"lei\s+de\s+drogas": "LD",
+    r"lei\s+de\s+execu[çc][ãa]o\s+penal": "LEP",
 }
 # Unico alias numerico fixado: confirmado na sessao de 25/10/2026 (resultado de
 # busca sobre a Camara/Planalto). Demais leis ficam pelo proprio numero.
