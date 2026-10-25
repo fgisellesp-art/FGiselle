@@ -53,8 +53,9 @@ Remover ou substituir por argumento concreto:
 - [ ] Profundidade aparente: vocabulário técnico para dizer algo simples? Simplificar
 
 ## ESPECÍFICO PARA MINUTAS JUDICIAIS
-- [ ] Citação normativa tem artigo + inciso/parágrafo específico?
+- [ ] Citação normativa tem artigo + inciso/parágrafo específico **que foi lido no texto oficial**? Se o inciso ou parágrafo não foi lido, não acrescente: especificidade inventada é pior que generalidade
 - [ ] Jurisprudência citada tem: tribunal, número, relator, data e tese? Verificar antes de manter
+- [ ] Esta varredura alterou algum número, citação, trecho entre aspas ou marcador? Se sim, desfaça: estilo não mexe em citação
 - [ ] Considerandos repetem o que o dispositivo já ordena? Cortar redundância
 - [ ] Dispositivo tem aderência real aos fatos do processo ou é fórmula genérica?
 - [ ] Terminologia processual consistente com a fase do processo?

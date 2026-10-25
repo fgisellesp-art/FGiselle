@@ -21,6 +21,16 @@ Base de comparação: o commit `82d5d5c` guarda o `assessor/SKILL.md` exatamente
 
 Nada mais foi alterado: as regras 1 a 4 e 7 a 18, o protocolo de leitura MCP ANA (L1 a L11), as Fases 0 a 2, o estilo e o modelo de despacho estão como no original.
 
+## escrita-autentica/ (editada; original no commit `636215a`)
+
+| Onde | Alteração |
+|---|---|
+| Princípio 4 ("especificidade concreta") | A exigência de "artigo com inciso e parágrafo específicos" passa a valer só para o que foi lido no texto oficial. Antes, a skill empurrava o modelo a acrescentar inciso ou parágrafo para soar preciso |
+| Exemplos dos princípios 1 e 2 | Os exemplos atribuíam conteúdo a um artigo específico sem verificação e ensinavam o modelo a imitar isso; foram trocados por exemplos neutros |
+| Etapa 2 | Exige leitura no texto oficial e teste de aderência; remete ao PFN do assessor |
+| Etapa 3 | Regra "citação não se mexe": estilo não altera nem acrescenta citação; reexecução do verificador com `--anterior` |
+| `references/padroes-ia.md` | Mesma ressalva no item de citação normativa e item novo conferindo se a varredura mexeu em citação |
+
 ## inovajur-anti-alucinacao (não editado; adendo à parte)
 
 O rodapé da skill reserva os direitos ao autor. Por isso o `SKILL.md` original **não** foi copiado nem alterado. O arquivo `ADENDO-OPERACIONAL-2.md` é texto novo, para ser anexado ao final do `SKILL.md` da Inovajur, no mesmo formato do Adendo Operacional que ela já tem. Ele estende o Pilar I à minuta do próprio gabinete, cria o vício 7 na taxonomia (conteúdo atribuído ao dispositivo que o texto não contém) e o Teste de Aderência.
@@ -36,4 +46,3 @@ O rodapé da skill reserva os direitos ao autor. Por isso o `SKILL.md` original 
 - **Nenhum texto de dispositivo foi carregado.** Neste ambiente os sites oficiais (Planalto, Câmara, LexML, STJ, STF, TJMA) estavam bloqueados e o Lawstronaut exigia nova autenticação. O Livro de Autoridades pré-carregado, com as normas mais usadas na vara única, precisa ser montado onde essas fontes estejam acessíveis.
 - O verificador é mecânico. Ele não prova que uma norma existe nem que diz o que a minuta afirma.
 - O único alias numérico de lei embutido no script (Lei 13.105/2015 = CPC) foi confirmado por resultado de busca nesta sessão; os demais diplomas são reconhecidos por sigla ou nome.
-- Não li a skill `escrita-autentica`; a regra 23 trata da interação, mas vale conferir o texto dela.

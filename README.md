@@ -17,6 +17,7 @@ Objetivo: reduzir o risco de a minuta citar lei, artigo, súmula, tema ou preced
 |---|---|
 | `assessor/SKILL.md` | Skill assessor com as regras 19 a 24 e o Protocolo de Fundamentação Normativa |
 | `inovajur-anti-alucinacao/ADENDO-OPERACIONAL-2.md` | Texto a anexar ao final da skill Inovajur |
+| `escrita-autentica/` | Skill de estilo ajustada para não inventar especificidade nem mexer em citação |
 | `*/scripts/verificar_citacoes.py` | Verificador mecânico de citações |
 | `*/references/` | Modelo do Livro de Autoridades e prompt do verificador independente |
 | `CHANGELOG-blindagem.md` | Lista exata do que mudou e das pendências |
@@ -25,7 +26,8 @@ Objetivo: reduzir o risco de a minuta citar lei, artigo, súmula, tema ou preced
 ## Como instalar
 
 1. Substitua o `SKILL.md` do assessor pelo desta pasta e copie `scripts/` e `references/` para a pasta da skill.
-2. Na Inovajur, anexe `ADENDO-OPERACIONAL-2.md` ao final do `SKILL.md` e copie `scripts/verificar_citacoes.py` e `references/`.
+2. Substitua o `SKILL.md` e o `references/padroes-ia.md` da escrita-autentica pelos desta pasta.
+3. Na Inovajur, anexe `ADENDO-OPERACIONAL-2.md` ao final do `SKILL.md` e copie `scripts/verificar_citacoes.py` e `references/`.
 
 ## Como testar o verificador
 

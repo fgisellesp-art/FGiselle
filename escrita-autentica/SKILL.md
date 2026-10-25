@@ -33,8 +33,9 @@ Não anuncie o que vai dizer. Diga.
 ### Etapa 2 — Revisar o mérito
 Antes de qualquer ajuste estilístico, cheque:
 - A lógica jurídica está correta e completa?
-- As referências normativas são precisas (artigo + inciso/parágrafo)?
-- A jurisprudência citada existe, com tribunal, número, relator e data?
+- As referências normativas são precisas (artigo + inciso/parágrafo) e cada uma foi lida no texto oficial? O que o texto diz que o dispositivo prevê está mesmo no dispositivo (tema, comando, condições)?
+- A jurisprudência citada existe, com tribunal, número, relator e data, conferidos na fonte?
+- Quando a skill assessor estiver em uso, esta etapa é feita pelo Protocolo de Fundamentação Normativa dela (Livro de Autoridades, regras 19 a 26). Nenhuma citação de memória, nem como sugestão.
 - O dispositivo decorre dos considerandos — ou os repete?
 - Há omissão sobre pedido das partes?
 
@@ -42,6 +43,8 @@ Antes de qualquer ajuste estilístico, cheque:
 
 ### Etapa 3 — Varredura de padrões de IA
 Leia `references/padroes-ia.md` e aplique o checklist **apenas ao que efetivamente aparecer no texto**. Não caçe padrões que não estão presentes. Remova os que estiverem.
+
+**Citação não se mexe.** A revisão de estilo nunca altera número de artigo, inciso, parágrafo, lei, súmula, tema, processo, trecho entre aspas ou marcador de pendência, nem acrescenta citação nova. Se a minuta já tiver passado pela auditoria final da skill assessor, rode depois o verificador de citações com a versão auditada (`--anterior`); qualquer citação nova ou alterada volta para a auditoria.
 
 ---
 
@@ -51,13 +54,13 @@ Leia `references/padroes-ia.md` e aplique o checklist **apenas ao que efetivamen
 Nunca inicie com anúncio do que virá. Comece com o fato, a norma, ou a posição.
 
 ❌ *"O presente despacho tem por objetivo analisar o pedido formulado pela parte autora..."*  
-✓ *"A parte autora requer tutela de urgência com fundamento no art. 300 do CPC. Decido."*
+✓ *"A parte autora requer tutela de urgência com fundamento no art. [dispositivo conferido no texto oficial]. Decido."*
 
 ### 2. Use sujeitos claros
 Retire passivas sem agente. Quem decide? Quem verificou? Nomeie.
 
 ❌ *"Constata-se que os requisitos não foram preenchidos."*  
-✓ *"A parte não demonstrou o fumus boni iuris exigido pelo art. 300 do CPC."*
+✓ *"A parte não demonstrou [o requisito que o texto do dispositivo efetivamente exige, com as palavras do próprio texto]."*
 
 ### 3. Tome posição onde couber
 Textos que apresentam "ambos os lados" com igual peso e não concluem nada são juridicamente inúteis. O magistrado decide; o pesquisador conclui; o redator jurídico argumenta. Tome o partido que o raciocínio sustenta.
@@ -65,7 +68,7 @@ Textos que apresentam "ambos os lados" com igual peso e não concluem nada são 
 ### 4. Especificidade concreta
 Generalização é o maior marcador de texto artificial. Use:
 - O nome da parte, não "a parte autora"
-- O artigo com inciso e parágrafo específicos, não "nos termos da lei"
+- O artigo com inciso e parágrafo específicos, não "nos termos da lei", **desde que lidos no texto oficial**. Se o inciso não foi lido, não o escreva para soar preciso: especificidade inventada é o pior tipo de erro, porque parece verdade
 - O fato do processo, não "os fatos narrados nos autos"
 
 ### 5. Hierarquize o que importa
