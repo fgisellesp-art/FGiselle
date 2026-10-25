@@ -20,6 +20,7 @@ Objetivo: reduzir o risco de a minuta citar lei, artigo, súmula, tema ou preced
 | `escrita-autentica/` | Skill de estilo ajustada para não inventar especificidade nem mexer em citação |
 | `*/scripts/verificar_citacoes.py` | Verificador mecânico de citações |
 | `*/references/` | Modelo do Livro de Autoridades e prompt do verificador independente |
+| `livro/` | Acervo oficial: texto literal de cada artigo de 10 diplomas, extraído por programa da Câmara dos Deputados |
 | `CHANGELOG-blindagem.md` | Lista exata do que mudou e das pendências |
 | `testes/` | Casos de teste do verificador |
 
@@ -37,3 +38,32 @@ python3 assessor/scripts/verificar_citacoes.py testes/sintetico_variado.txt --li
 ```
 
 O primeiro caso mostra o ponto central: com o art. 731 no Livro como verificado, a checagem de existência passa, e o alerta de **atribuição de conteúdo** é o que sinaliza a frase a conferir.
+
+## Acervo oficial (`livro/`)
+
+Texto literal, artigo por artigo, extraído por programa (`livro/construir_livro.py`) das páginas de texto atualizado da Câmara dos Deputados. Cada arquivo traz no cabeçalho a URL, a data e hora do download e o SHA-256 do HTML de origem, guardado em `livro/_html/`.
+
+| Sigla | Diploma | Artigos |
+|---|---|---|
+| CPC | Lei 13.105/2015 | 1 a 1.072 |
+| CPP | Decreto-Lei 3.689/1941 | 1 a 811 |
+| CP | Decreto-Lei 2.848/1940 | 1 a 361 |
+| CC | Lei 10.406/2002 | 1 a 2.046 |
+| CF | Constituição de 1988 (+ ADCT, com prefixo `ADCT-`) | 1 a 250; ADCT 1 a 138 |
+| ECA | Lei 8.069/1990 | 1 a 267 |
+| LMP | Lei 11.340/2006 | 1 a 46 |
+| L9099 | Lei 9.099/1995 | 1 a 97 |
+| CDC | Lei 8.078/1990 | 1 a 119 |
+| L5478 | Lei 5.478/1968 | 1 a 29 |
+
+Conferências feitas: sequência numérica completa em todos (incluindo artigos com letra, como 359-M-A); cabeçalho de cada página confere com o diploma; o art. 731 do CPC bate palavra por palavra com o texto colado pela usuária. Duas irregularidades do próprio original ficaram registradas no Livro, sem correção silenciosa: "Art. l97" no CP (letra l) e "Art 1.636" no CC (sem ponto).
+
+Para atualizar: `python3 livro/construir_livro.py` (todos) ou `python3 livro/construir_livro.py CPC` (um). Para incluir outro diploma, acrescente a URL "normaatualizada" da Câmara em `livro/fontes.json`.
+
+Limite: compilação da Câmara, não o Diário Oficial. O Planalto recusa conexões vindas do servidor em nuvem.
+
+Uso com o verificador:
+
+```
+python3 assessor/scripts/verificar_citacoes.py MINUTA.txt --acervo livro
+```

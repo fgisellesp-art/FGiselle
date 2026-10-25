@@ -17,7 +17,12 @@ O QUE NAO FAZ
   contra o texto literal.
 
 USO
-  verificar_citacoes.py MINUTA.txt [--livro LIVRO.md] [--anterior VERSAO.txt] [--json]
+  verificar_citacoes.py MINUTA.txt [--acervo livro/] [--livro LIVRO.md] [--anterior VERSAO.txt] [--json]
+
+  --acervo aponta para a pasta gerada por livro/construir_livro.py (texto oficial
+  extraido por programa). Com ela, artigo inexistente, revogado ou com paragrafo/
+  inciso/alinea que nao existe vira BLOQUEIO, e cada frase que atribui conteudo a
+  dispositivo vem acompanhada do texto oficial para confronto.
 
 SAIDA
   Relatorio em Markdown no stdout. Codigo de saida: 0 sem bloqueios,
@@ -42,6 +47,9 @@ NOMES = {
     r"estatuto\s+da\s+crian[çc]a\s+e\s+do\s+adolescente": "ECA",
     r"c[óo]digo\s+tribut[áa]rio\s+nacional": "CTN",
     r"c[óo]digo\s+de\s+tr[âa]nsito\s+brasileiro": "CTB",
+    r"lei\s+maria\s+da\s+penha": "LMP",
+    r"lei\s+dos\s+juizados\s+especiais": "L9099",
+    r"lei\s+de\s+alimentos": "L5478",
 }
 # Unico alias numerico fixado: confirmado na sessao de 25/10/2026 (resultado de
 # busca sobre a Camara/Planalto). Demais leis ficam pelo proprio numero.
@@ -190,6 +198,7 @@ GENERICAS = [
 VERBOS_ATRIBUICAO = re.compile(
     r"\b(prev[êe]|determina|estabelece|disp[õo]e|imp[õo]e|exige|autoriza|veda|pro[íi]be|assegura|"
     r"garante|reconhece|obriga|permite|faculta|define|prescreve)\s+(?:expressamente\s+)?que\b", re.I)
+FIM_FRASE = re.compile(r"(?<=[A-Za-zÀ-ú\d\)º°])\.\s+(?=[A-ZÀ-Ú])")
 CONDICAO = re.compile(r"\b(desde\s+que|salvo|exceto|somente\s+se|apenas\s+se|contanto\s+que)\b", re.I)
 MARCADOR_RE = re.compile(
     r"\[(?:JURISPRUD[ÊE]NCIA|FUNDAMENTO\s+LEGAL|DISPOSITIVO|FATO|DOCUMENTO|DADO|QUALIFICA[ÇC][ÃA]O|"
@@ -280,10 +289,70 @@ def ler_livro(caminho):
     return n3, subs, outros
 
 
+# ------------------------------------------------------------------- acervo
+def carregar_acervo(pasta):
+    """Le livro/<SIGLA>.json gerados por construir_livro.py. Chaveia por sigla e por lei."""
+    acervo = {}
+    for arq in sorted(Path(pasta).glob("*.json")):
+        try:
+            d = json.loads(arq.read_text(encoding="utf-8"))
+            meta, arts = d["meta"], d["artigos"]
+        except (KeyError, ValueError):
+            continue
+        reg = {"meta": meta, "arts": {a["art"]: a for a in arts}}
+        chaves = {meta["sigla"]}
+        m = LEI_RE.search(meta.get("titulo", ""))
+        if m:
+            prefixo = re.match(r"[A-Za-zÀ-ú\- ]+?(?=\s+(?:Federal|Estadual|n|\d))", m.group(0))
+            chaves.add(canon_lei(m.group(1), m.group(2), prefixo.group(0) if prefixo else "Lei"))
+        for k in chaves:
+            acervo[k] = reg
+    return acervo
+
+
+def sub_existe(linhas, sub):
+    sub = sub.strip()
+    if sub == "caput":
+        return True
+    if sub.startswith("par") and "nico" in sub:
+        return any(re.match(r"par[áa]grafo\s+[úu]nico", l, re.I) for l in linhas)
+    m = re.match(r"§§?\s*(\d+)", sub)
+    if m:
+        return any(re.match(rf"§\s*{m.group(1)}\s*[º°o]?(?!\d)", l) for l in linhas)
+    if re.fullmatch(r"[ivxlc]+", sub, re.I):
+        return any(re.match(rf"{sub.upper()}\s*[-–—]", l) for l in linhas)
+    if re.fullmatch(r"[a-z]", sub):
+        return any(re.match(rf"{sub}\s*\)", l) for l in linhas)
+    return True
+
+
 # --------------------------------------------------------------------- main
-def analisar(texto, livro=None, anterior=None):
+def analisar(texto, livro=None, anterior=None, acervo=None):
     bloq, atenc, info = [], [], []
     cits = extrair(texto)
+    literais = []
+
+    # acervo oficial (texto literal extraido por programa)
+    if acervo:
+        for c in cits:
+            if c["tipo"] != "artigo" or c["diploma"] not in acervo:
+                continue
+            reg = acervo[c["diploma"]]
+            fonte = f"{reg['meta']['sigla']}, baixado em {reg['meta']['baixado_em']}"
+            num = c["chave"].split(":art:")[1]
+            art = reg["arts"].get(num)
+            if not art:
+                bloq.append(("INEXISTENTE", c["exibicao"], f"artigo NÃO existe no texto oficial ({fonte})"))
+                continue
+            linhas = art["texto"]
+            if re.search(r"\((?:Revogad|Vetad)", linhas[0]) and len(linhas) == 1:
+                bloq.append(("REVOGADO", c["exibicao"], f"no texto atualizado consta: «{linhas[0][:160]}» ({fonte}); conferir a vigência na data do fato"))
+            faltam = [x for x in c["subs"] if not sub_existe(linhas[1:], x)]
+            if faltam:
+                bloq.append(("SUBDIVISÃO", c["exibicao"], f"não existe neste artigo: {', '.join(faltam)} ({fonte})"))
+                continue
+            c["acervo_ok"] = True
+            c["literal"] = (fonte, linhas)
 
     # numeros CNJ
     for m in CNJ_RE.finditer(texto):
@@ -304,6 +373,10 @@ def analisar(texto, livro=None, anterior=None):
             if c["tipo"] == "artigo" and not c["diploma"]:
                 bloq.append(("DIPLOMA", c["exibicao"], "diploma não identificado perto do artigo: citar o diploma por extenso/sigla"))
                 continue
+            if c.get("acervo_ok"):
+                continue
+            if c["tipo"] in ("lei",) and acervo and c["chave"].split(":", 1)[1] in acervo:
+                continue
             if c["tipo"] in ("lei",) and c["chave"] not in n3:
                 bloq.append(("LIVRO", c["exibicao"], "lei citada que não consta do Livro como N3"))
                 continue
@@ -316,6 +389,14 @@ def analisar(texto, livro=None, anterior=None):
                                   "o Livro não registra o §/inciso/alínea citado; conferir o nível exato no texto literal"))
             if c["tipo"] == "artigo" and c.get("intervalo"):
                 atenc.append(("INTERVALO", c["exibicao"], "artigo incluído por intervalo ('arts. X a Y'): conferir que o Livro cobre cada um"))
+    elif acervo:
+        for c in cits:
+            if c["tipo"] == "artigo" and not c["diploma"]:
+                bloq.append(("DIPLOMA", c["exibicao"], "diploma não identificado perto do artigo: citar o diploma por extenso/sigla"))
+            elif c["tipo"] == "artigo" and not c.get("acervo_ok") and c["diploma"] not in acervo:
+                bloq.append(("FORA DO ACERVO", c["exibicao"], "diploma fora do acervo oficial e sem Livro: verificar em fonte oficial"))
+            elif c["tipo"] in ("súmula", "tema", "processo", "norma"):
+                atenc.append(("PRECEDENTE/NORMA", c["exibicao"], "não coberto pelo acervo de leis: verificar no Banco Nacional de Precedentes ou na fonte oficial e registrar no Livro"))
     else:
         info.append(("LIVRO", "-", "nenhum Livro informado (--livro): citações NÃO foram confrontadas com autoridades verificadas"))
 
@@ -333,16 +414,20 @@ def analisar(texto, livro=None, anterior=None):
     for c in cits:
         if c["tipo"] != "artigo":
             continue
-        janela = texto[c["fim"]:c["fim"] + 220].split("\n\n")[0]
+        janela = texto[c["fim"]:c["fim"] + 220].split("\n")[0]
+        corte = FIM_FRASE.search(janela)
+        if corte:
+            janela = janela[:corte.start() + 1]
         v = VERBOS_ATRIBUICAO.search(janela)
         if v:
-            fim_frase = re.search(r"(?<=[a-zà-ú])\.\s+(?=[A-ZÀ-Ú])", janela[v.end():])
-            frase = janela[:v.end() + (fim_frase.start() if fim_frase else len(janela))]
+            frase = janela
             conds = CONDICAO.findall(frase)
             msg = (f"a minuta diz que o dispositivo '{v.group(1)} que ...'. Conferir CADA comando, requisito"
                    f"{' e exceção (' + ', '.join(sorted(set(x.lower() for x in conds))) + ')' if conds else ''}"
                    " contra o texto literal e confirmar que o TEMA do dispositivo é o do caso (regra 20)")
             atenc.append(("ATRIBUIÇÃO", c["exibicao"] + " :: «" + norm_espaco(texto[c["ini"]:c["fim"] + v.end() + 90]) + "…»", msg))
+            if c.get("literal"):
+                literais.append((c["exibicao"], norm_espaco(frase), c["literal"]))
 
     # genericas
     for padrao, rotulo in GENERICAS:
@@ -354,7 +439,7 @@ def analisar(texto, livro=None, anterior=None):
     if placeholders:
         atenc.append(("PLACEHOLDER", f"{placeholders}x '[...]'", "lacuna de modelo não preenchida nem convertida em marcador"))
 
-    return {"citacoes": cits, "bloqueios": bloq, "atencao": atenc, "info": info,
+    return {"citacoes": cits, "bloqueios": bloq, "atencao": atenc, "info": info, "literais": literais, "acervo_usado": bool(acervo),
             "marcadores": marcadores, "livro_usado": bool(livro), "n3": n3}
 
 
@@ -372,6 +457,7 @@ def relatorio(res):
     else:
         L.append("- Nenhuma citação reconhecida.")
     L.append(f"- Confrontadas com o Livro: {'sim' if res['livro_usado'] else 'NÃO (sem --livro)'}")
+    L.append(f"- Confrontadas com o acervo oficial: {'sim' if res.get('acervo_usado') else 'NÃO (sem --acervo)'}")
     L.append(f"- Bloqueios: {len(res['bloqueios'])} | Atenções: {len(res['atencao'])} | Marcadores pendentes: {len(res['marcadores'])}")
     L.append("")
     for titulo, itens in (("Bloqueios (a minuta NÃO pode ser entregue como pronta)", res["bloqueios"]),
@@ -391,6 +477,20 @@ def relatorio(res):
         for m in res["marcadores"]:
             L.append(f"- {m}")
         L.append("")
+    if res.get("literais"):
+        L.append("## Confronto: o que a minuta diz × texto oficial")
+        L.append("")
+        for exib, frase, (fonte, linhas) in res["literais"]:
+            L.append(f"### {exib}")
+            L.append("")
+            L.append(f"**Minuta:** «{frase}»")
+            L.append("")
+            L.append(f"**Texto oficial ({fonte}):**")
+            L.append("")
+            L += [f"> {t}" for t in linhas]
+            L.append("")
+            L.append("Conferir: o tema é o mesmo? Cada comando está no texto? Alguma condição foi acrescentada ou omitida?")
+            L.append("")
     L.append("## Citações extraídas")
     L.append("")
     for c in res["citacoes"]:
@@ -403,17 +503,20 @@ def main():
     ap.add_argument("minuta")
     ap.add_argument("--livro", help="Livro de Autoridades (tabela Markdown)")
     ap.add_argument("--anterior", help="versão anterior já auditada, para detectar citação nova")
+    ap.add_argument("--acervo", help="pasta com o texto oficial extraído (livro/*.json de construir_livro.py)")
     ap.add_argument("--json", action="store_true")
     a = ap.parse_args()
     try:
         texto = Path(a.minuta).read_text(encoding="utf-8")
         ant = Path(a.anterior).read_text(encoding="utf-8") if a.anterior else None
-        res = analisar(texto, a.livro, ant)
+        acervo = carregar_acervo(a.acervo) if a.acervo else None
+        res = analisar(texto, a.livro, ant, acervo)
     except (OSError, UnicodeDecodeError) as e:
         print(f"erro: {e}", file=sys.stderr)
         return 2
     if a.json:
         res = dict(res, n3=sorted(res["n3"]) if res["n3"] else None,
+                   literais=[[e, f, list(l)] for e, f, l in res["literais"]],
                    citacoes=[{k: v for k, v in c.items() if k in ("tipo", "chave", "exibicao")} for c in res["citacoes"]])
         print(json.dumps(res, ensure_ascii=False, indent=2))
     else:

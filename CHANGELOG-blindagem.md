@@ -12,6 +12,8 @@ Base de comparação: o commit `82d5d5c` guarda o `assessor/SKILL.md` exatamente
 | Seção "Protocolo de Fundamentação Normativa (PFN)" (nova) | Níveis N3/N2/N0, ordem "verificar antes de escrever", hierarquia de fontes, Livro, teste de aderência, marcadores, Tabela de Fontes Jurídicas, caso de referência anonimizado |
 | Regras 25 e 26 (novas, 2ª rodada) | 25 nada de memória, nem como "hipótese" ou "candidato" · 26 antes de deixar lacuna, esgotar as fontes e pedir o texto ao usuário; marcador só como último recurso, sem número de dispositivo |
 | PFN, seções 1, 2, 5 e 6 (2ª rodada) | Retirado o "dispositivo candidato" do marcador e da tabela de níveis; a lista de candidatos passa a ser só termo de busca interno |
+| PFN, seção 3 (3ª rodada) | Item 0 "Acervo oficial do gabinete (`livro/`)", com regra de reconsulta (fato posterior ao download ou download com mais de 30 dias) e situação conhecida das fontes |
+| Verificador (3ª rodada) | Opção `--acervo`: bloqueio para artigo inexistente, revogado ou com subdivisão inexistente; confronto lado a lado "minuta × texto oficial"; alerta de atribuição limitado à própria frase |
 | Fase 3 | Parágrafo "Fundamentação" mandando aplicar o PFN antes de redigir |
 | Fase 4, checklist | Item novo "Livro de Autoridades e verificador" antes do item "Fundamentos legais" |
 | Fase 4, fecho | A frase "Auditoria: todas as referências conferidas" só pode ser usada com a Tabela de Fontes Jurídicas toda em N3 e sem marcador pendente; a nota passa a trazer contagem |
@@ -43,6 +45,6 @@ O rodapé da skill reserva os direitos ao autor. Por isso o `SKILL.md` original 
 
 ## Pendências conhecidas
 
-- **Nenhum texto de dispositivo foi carregado.** Neste ambiente os sites oficiais (Planalto, Câmara, LexML, STJ, STF, TJMA) estavam bloqueados e o Lawstronaut exigia nova autenticação. O Livro de Autoridades pré-carregado, com as normas mais usadas na vara única, precisa ser montado onde essas fontes estejam acessíveis.
+- **Acervo oficial montado (3ª rodada).** Após a liberação de rede, `livro/` passou a ter o texto literal de 10 diplomas (ver README). O Planalto continua inacessível do servidor em nuvem; a fonte usada é a Câmara. O Lawstronaut exige conta comercial e foi dispensado.
 - O verificador é mecânico. Ele não prova que uma norma existe nem que diz o que a minuta afirma.
 - O único alias numérico de lei embutido no script (Lei 13.105/2015 = CPC) foi confirmado por resultado de busca nesta sessão; os demais diplomas são reconhecidos por sigla ou nome.

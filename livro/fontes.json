@@ -1,0 +1,42 @@
+{
+ "CPC": {
+  "titulo": "Código de Processo Civil (Lei nº 13.105/2015)",
+  "url": "https://www2.camara.leg.br/legin/fed/lei/2015/lei-13105-16-marco-2015-780273-normaatualizada-pl.html"
+ },
+ "CP": {
+  "titulo": "Código Penal (Decreto-Lei nº 2.848/1940)",
+  "url": "https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.html"
+ },
+ "CC": {
+  "titulo": "Código Civil (Lei nº 10.406/2002)",
+  "url": "https://www2.camara.leg.br/legin/fed/lei/2002/lei-10406-10-janeiro-2002-432893-normaatualizada-pl.html"
+ },
+ "ECA": {
+  "titulo": "Estatuto da Criança e do Adolescente (Lei nº 8.069/1990)",
+  "url": "https://www2.camara.leg.br/legin/fed/lei/1990/lei-8069-13-julho-1990-372211-normaatualizada-pl.html"
+ },
+ "LMP": {
+  "titulo": "Lei Maria da Penha (Lei nº 11.340/2006)",
+  "url": "https://www2.camara.leg.br/legin/fed/lei/2006/lei-11340-7-agosto-2006-545133-normaatualizada-pl.html"
+ },
+ "L9099": {
+  "titulo": "Lei dos Juizados Especiais (Lei nº 9.099/1995)",
+  "url": "https://www2.camara.leg.br/legin/fed/lei/1995/lei-9099-26-setembro-1995-348608-normaatualizada-pl.html"
+ },
+ "CDC": {
+  "titulo": "Código de Defesa do Consumidor (Lei nº 8.078/1990)",
+  "url": "https://www2.camara.leg.br/legin/fed/lei/1990/lei-8078-11-setembro-1990-365086-normaatualizada-pl.html"
+ },
+ "CF": {
+  "titulo": "Constituição Federal de 1988",
+  "url": "https://www2.camara.leg.br/legin/fed/consti/1988/constituicao-1988-5-outubro-1988-322142-normaatualizada-pl.html"
+ },
+ "CPP": {
+  "titulo": "Código de Processo Penal (Decreto-Lei nº 3.689/1941)",
+  "url": "https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-3689-3-outubro-1941-322206-normaatualizada-pe.html"
+ },
+ "L5478": {
+  "titulo": "Lei de Alimentos (Lei nº 5.478/1968)",
+  "url": "https://www2.camara.leg.br/legin/fed/lei/1960-1969/lei-5478-25-julho-1968-358589-normaatualizada-pl.html"
+ }
+}
