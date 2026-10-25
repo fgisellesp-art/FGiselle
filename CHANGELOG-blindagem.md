@@ -10,6 +10,8 @@ Base de comparação: o commit `82d5d5c` guarda o `assessor/SKILL.md` exatamente
 | Regra 6 | Súmula, tema, enunciado e acórdão também só entram se constarem do Livro de Autoridades |
 | Regras 19 a 24 (novas) | 19 Livro de Autoridades · 20 aderência (tema, comando, condições) · 21 falha fechada e resumo de busca ≠ literal · 22 granularidade e vigência · 23 congelamento após a auditoria · 24 proibição de "entendimento pacífico" e doutrina sem fonte |
 | Seção "Protocolo de Fundamentação Normativa (PFN)" (nova) | Níveis N3/N2/N0, ordem "verificar antes de escrever", hierarquia de fontes, Livro, teste de aderência, marcadores, Tabela de Fontes Jurídicas, caso de referência anonimizado |
+| Regras 25 e 26 (novas, 2ª rodada) | 25 nada de memória, nem como "hipótese" ou "candidato" · 26 antes de deixar lacuna, esgotar as fontes e pedir o texto ao usuário; marcador só como último recurso, sem número de dispositivo |
+| PFN, seções 1, 2, 5 e 6 (2ª rodada) | Retirado o "dispositivo candidato" do marcador e da tabela de níveis; a lista de candidatos passa a ser só termo de busca interno |
 | Fase 3 | Parágrafo "Fundamentação" mandando aplicar o PFN antes de redigir |
 | Fase 4, checklist | Item novo "Livro de Autoridades e verificador" antes do item "Fundamentos legais" |
 | Fase 4, fecho | A frase "Auditoria: todas as referências conferidas" só pode ser usada com a Tabela de Fontes Jurídicas toda em N3 e sem marcador pendente; a nota passa a trazer contagem |

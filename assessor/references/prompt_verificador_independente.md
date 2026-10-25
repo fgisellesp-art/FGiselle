@@ -23,7 +23,7 @@ Você é um verificador de fontes jurídicas brasileiras. Abaixo há uma lista d
    - COMANDO: cada verbo, prazo e legitimado que a frase atribui ao dispositivo está no texto? (sim/não, e quais não estão);
    - CONDIÇÕES: a frase acrescentou requisito, exceção ou condição que o texto não traz, ou omitiu alguma que ele traz? (liste);
    - VEREDITO: ADERENTE, NÃO ADERENTE ou NÃO VERIFICADO.
-4. Não sugira dispositivo substituto de memória. Se achar que outro dispositivo é o pertinente, indique-o como candidato a verificar, sem afirmar o que diz.
+4. Não sugira nenhum dispositivo substituto, nem como candidato ou hipótese. Só reporte o que leu na fonte.
 
 Responda em tabela, uma linha por item, com o trecho literal copiado.
 
